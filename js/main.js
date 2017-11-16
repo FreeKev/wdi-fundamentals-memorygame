@@ -20,22 +20,33 @@ var cardsInPlay = [];
 
 var checkMatch = function () {
   if (cardsInPlay.length === 2 && cardsInPlay[0] === cardsInPlay[1]) {
-    console.log("You found a match!");
+    alert("You found a match!");
 } else if (cardsInPlay.length === 2) {
-    console.log("Sorry, try again.");
+    alert("Sorry, try again.");
   }
 }
 
-var flipCard = function (cardId) {
+var flipCard = function () {
+  var cardId = this.getAttribute('data-id');
   cardsInPlay.push(cards[cardId].rank);
+  this.setAttribute('src', cards[cardId].cardImage);
   console.log("User flipped the " + cards[cardId].rank);
   console.log("of " + cards[cardId].suit);
-  console.log(cards[cardId].cardImage);
   checkMatch();
   };
 
-flipCard(0);
-flipCard(2);
+var createBoard = function () {
+  var table = document.getElementById("game-board");
+  for (i = 0; i < cards.length; i++) {
+    var cardElement = table.createElement('img');
+    cardElement.setAttribute('src', "images/back.png");
+    cardElement.setAttribute('data-id', i);
+    cardElement.addEventListener('click', flipcard);
+    table.appendChild(cardElement);
+  }
+}
+
+createBoard();
 
 // Version 1
 // console.log("All's Ready, chumps!");
